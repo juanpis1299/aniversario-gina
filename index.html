@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Un Año Contigo 🌹</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --vino: #6b1a2a;
+      --vino-light: #8b2a3a;
+      --vino-dark: #4a0f1c;
+      --rose-gold: #c9a96e;
+      --cream: #fdf6f0;
+      --soft-pink: #f5dde0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--vino-dark);
+      font-family: 'Lato', sans-serif;
+      color: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* ── PETALS ── */
+    .petals-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      top: -60px;
+      width: 18px; height: 22px;
+      background: radial-gradient(ellipse at 30% 30%, #e8b4bc, var(--vino));
+      border-radius: 150% 0 150% 0;
+      opacity: 0.7;
+      animation: fallPetal linear infinite;
+    }
+
+    @keyframes fallPetal {
+      0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.7; }
+      100% { transform: translateY(110vh) rotate(720deg) translateX(60px); opacity: 0; }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(160deg, var(--vino-dark) 0%, var(--vino) 50%, var(--vino-dark) 100%);
+      z-index: 1;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='1' fill='%23c9a96e22'/%3E%3C/svg%3E") repeat;
+      opacity: 0.4;
+    }
+
+    .hero-badge {
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--rose-gold);
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      line-height: 1.1;
+      color: var(--cream);
+      position: relative;
+      text-shadow: 0 0 40px rgba(201, 169, 110, 0.4);
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--rose-gold);
+    }
+
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: 1.15rem;
+      color: var(--soft-pink);
+      letter-spacing: 0.08em;
+      position: relative;
+    }
+
+    .hero-date {
+      margin-top: 2.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--rose-gold);
+      border-radius: 999px;
+      padding: 0.6rem 1.6rem;
+      font-size: 0.95rem;
+      color: var(--rose-gold);
+      letter-spacing: 0.15em;
+      position: relative;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--rose-gold);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-8px); }
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 5rem 2rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--rose-gold);
+      margin-bottom: 3rem;
+    }
+
+    .section-title span {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--soft-pink);
+      margin-bottom: 0.5rem;
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+    }
+
+    /* ── GALLERY ── */
+    .gallery-section {
+      background: linear-gradient(180deg, var(--vino-dark) 0%, #2a0a12 100%);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      border: 1px solid rgba(201, 169, 110, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 40px rgba(201, 169, 110, 0.25);
+    }
+
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: filter 0.3s ease;
+      filter: brightness(0.9) saturate(1.1);
+    }
+
+    .gallery-item:hover img { filter: brightness(1) saturate(1.2); }
+
+    .gallery-item .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(74, 15, 28, 0.7) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .gallery-item:hover .overlay { opacity: 1; }
+
+    /* featured items */
+    .gallery-item.wide { grid-column: span 2; }
+    .gallery-item.tall { grid-row: span 2; aspect-ratio: unset; }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    #lightbox.open { display: flex; }
+
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 2px solid var(--rose-gold);
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      background: none; border: none;
+      color: var(--rose-gold);
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    #lightbox-prev, #lightbox-next {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(107, 26, 42, 0.7);
+      border: 1px solid var(--rose-gold);
+      color: var(--rose-gold);
+      font-size: 1.5rem;
+      width: 3rem; height: 3rem;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    #lightbox-prev:hover, #lightbox-next:hover { background: var(--vino); }
+    #lightbox-prev { left: 1rem; }
+    #lightbox-next { right: 1rem; }
+
+    /* ── QUOTES / CASI ANGELES ── */
+    .quotes-section {
+      background: var(--vino);
+      text-align: center;
+    }
+
+    .ca-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      color: var(--rose-gold);
+      letter-spacing: 0.15em;
+      margin-bottom: 0.5rem;
+    }
+
+    .ca-sub {
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      color: var(--soft-pink);
+      margin-bottom: 3rem;
+    }
+
+    .quotes-carousel {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      min-height: 140px;
+    }
+
+    .quote-slide {
+      display: none;
+      animation: fadeIn 0.6s ease;
+    }
+    .quote-slide.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    blockquote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      line-height: 1.7;
+      color: var(--cream);
+      border-left: 3px solid var(--rose-gold);
+      padding-left: 1.5rem;
+      text-align: left;
+    }
+
+    blockquote cite {
+      display: block;
+      margin-top: 1rem;
+      font-style: normal;
+      font-size: 0.85rem;
+      color: var(--rose-gold);
+      letter-spacing: 0.1em;
+    }
+
+    .quote-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(201,169,110,0.3);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .dot.active { background: var(--rose-gold); }
+
+    /* ── LOVE LETTER ── */
+    .letter-section {
+      background: linear-gradient(180deg, #2a0a12 0%, var(--vino-dark) 100%);
+    }
+
+    .letter-card {
+      max-width: 700px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,169,110,0.25);
+      border-radius: 16px;
+      padding: 3rem;
+      position: relative;
+    }
+
+    .letter-card::before {
+      content: '❝';
+      position: absolute;
+      top: -0.5rem; left: 1.5rem;
+      font-size: 4rem;
+      color: var(--rose-gold);
+      opacity: 0.3;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .letter-card p {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: var(--cream);
+      margin-bottom: 1.2rem;
+    }
+
+    .letter-card .signature {
+      margin-top: 2rem;
+      text-align: right;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--rose-gold);
+      font-size: 1.3rem;
+    }
+
+    /* ── ROSES DIVIDER ── */
+    .roses-divider {
+      text-align: center;
+      padding: 1.5rem 0;
+      font-size: 1.8rem;
+      background: transparent;
+      letter-spacing: 0.5rem;
+    }
+
+    /* ── COUNTDOWN ── */
+    .countdown-section {
+      background: var(--vino-dark);
+      text-align: center;
+    }
+
+    .counter-boxes {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .counter-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--rose-gold);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      min-width: 120px;
+    }
+
+    .counter-box .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: var(--rose-gold);
+      display: block;
+    }
+
+    .counter-box .label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--soft-pink);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--vino-dark);
+      text-align: center;
+      padding: 3rem 2rem 4rem;
+      border-top: 1px solid rgba(201,169,110,0.15);
+      position: relative;
+      z-index: 1;
+    }
+
+    footer p { color: var(--soft-pink); font-size: 0.9rem; margin-bottom: 0.5rem; }
+    footer .big-heart { font-size: 3rem; display: block; margin: 1rem auto; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .gallery-item.wide { grid-column: span 1; }
+      .gallery-item.tall { grid-row: span 1; aspect-ratio: 4/3; }
+      .letter-card { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Falling petals -->
+<div class="petals-container" id="petals"></div>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <p class="hero-badge">🌹 21 de Junio · Un año juntos 🌹</p>
+  <h1>Un año<br>lleno de <em>amor</em></h1>
+  <p class="hero-sub">Para ti, mi Gina &mdash; con todo mi corazón</p>
+  <div class="hero-date">
+    <span>🌹</span>
+    <span>21 · Junio · 2025 &nbsp;→&nbsp; 21 · Junio · 2026</span>
+    <span>🌹</span>
+  </div>
+  <div class="scroll-hint">
+    <span>▼</span>
+    <span>DESLIZA</span>
+  </div>
+</section>
+
+<!-- ══════════ GALLERY ══════════ -->
+<section class="gallery-section">
+  <h2 class="section-title">
+    <span>Nuestra historia</span>
+    Momentos que guardo en el corazón
+  </h2>
+  <div class="gallery-grid" id="gallery"></div>
+</section>
+
+<div class="roses-divider">🌹 🌹 🌹 🌹 🌹</div>
+
+<!-- ══════════ CASI ÁNGELES ══════════ -->
+<section class="quotes-section">
+  <p class="ca-logo">✦ Casi Ángeles ✦</p>
+  <p class="ca-sub">Frases que me recuerdan a nosotros</p>
+  <div class="quotes-carousel" id="quotesCarousel">
+    <div class="quote-slide active">
+      <blockquote>
+        "El amor no se busca, el amor llega cuando menos lo esperas, y se queda cuando más lo necesitas."
+        <cite>— Casi Ángeles</cite>
+      </blockquote>
+    </div>
+    <div class="quote-slide">
+      <blockquote>
+        "Cuando estoy contigo siento que el mundo puede ser un lugar mejor. Que la magia existe. Que los sueños se cumplen."
+        <cite>— Casi Ángeles</cite>
+      </blockquote>
+    </div>
+    <div class="quote-slide">
+      <blockquote>
+        "El amor verdadero no es perfecto, es real. Y lo real siempre vale más que lo perfecto."
+        <cite>— Casi Ángeles</cite>
+      </blockquote>
+    </div>
+    <div class="quote-slide">
+      <blockquote>
+        "Hay personas que llegan a tu vida y la cambian para siempre. Tú eres una de esas personas para mí."
+        <cite>— Casi Ángeles</cite>
+      </blockquote>
+    </div>
+    <div class="quote-slide">
+      <blockquote>
+        "Amar es elegir todos los días quedarse, construir, crecer juntos."
+        <cite>— Casi Ángeles</cite>
+      </blockquote>
+    </div>
+  </div>
+  <div class="quote-dots" id="quoteDots"></div>
+</section>
+
+<div class="roses-divider">🌹 🌹 🌹 🌹 🌹</div>
+
+<!-- ══════════ CARTA ══════════ -->
+<section class="letter-section">
+  <h2 class="section-title">
+    <span>Una carta para ti</span>
+    Desde lo más profundo de mi ser
+  </h2>
+  <div class="letter-card">
+    <p>
+      Mi amor,
+    </p>
+    <p>
+      Hace exactamente un año, sin saberlo, empezó la mejor historia de mi vida. La tuya y la mía.
+      Cada momento a tu lado ha sido un regalo: tu risa, tu forma de ver el mundo, tu corazón
+      inmenso que me enseña algo nuevo cada día.
+    </p>
+    <p>
+      Eres mi calma cuando todo es caos. Eres la persona con quien quiero compartir cada
+      pequeña cosa, cada ocurrencia, cada sueño. Contigo aprendí que el amor no solo se siente
+      &mdash;también se elige, se construye y se cuida.
+    </p>
+    <p>
+      Gracias por cada abrazo, por cada conversación hasta tarde, por quererme como soy.
+      Hoy quiero que sepas que eres la persona más especial de mi vida, y que cada día doy gracias
+      porque llegaste a ella.
+    </p>
+    <p>
+      Feliz primer aniversario, mi amor. Este es solo el principio. 🌹
+    </p>
+    <div class="signature">Con todo mi amor, Juan Pablo &hearts;</div>
+  </div>
+</section>
+
+<!-- ══════════ TIEMPO JUNTOS ══════════ -->
+<section class="countdown-section">
+  <h2 class="section-title">
+    <span>Llevamos juntos</span>
+    Un año de amor
+  </h2>
+  <div class="counter-boxes">
+    <div class="counter-box">
+      <span class="num" id="cnt-days">365</span>
+      <span class="label">Días</span>
+    </div>
+    <div class="counter-box">
+      <span class="num" id="cnt-hours">8760</span>
+      <span class="label">Horas</span>
+    </div>
+    <div class="counter-box">
+      <span class="num" id="cnt-min">525600</span>
+      <span class="label">Minutos</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <span class="big-heart">🌹</span>
+  <p>Hecho con amor · 21 de Junio de 2026</p>
+  <p style="color:var(--rose-gold); margin-top:0.5rem; font-family:'Playfair Display',serif; font-style:italic; font-size:1.1rem;">
+    Te amo hoy, mañana y siempre
+  </p>
+</footer>
+
+<!-- ══════════ LIGHTBOX ══════════ -->
+<div id="lightbox">
+  <button id="lightbox-close" aria-label="Cerrar">✕</button>
+  <button id="lightbox-prev" aria-label="Anterior">‹</button>
+  <img id="lightbox-img" src="" alt="" />
+  <button id="lightbox-next" aria-label="Siguiente">›</button>
+</div>
+
+<script>
+  // ── IMAGE LIST ──────────────────────────────────────────────
+  const images = [
+    "25d3c530-9dae-4e17-95e3-b54a64a4cb4f.jpeg",
+    "29cf54a7-1e6b-49ed-966a-6b09504ffe77.jpeg",
+    "31bed9a6-2e7f-4abf-b23c-c86ad7454dd4.jpeg",
+    "3444523a-8876-4f7e-8464-6105e83c9aed.jpeg",
+    "3b375a4c-a970-495a-9019-fc677b5a3c64.jpeg",
+    "51610eae-b973-498b-96e9-51420e122c23.jpeg",
+    "5ab50088-ebd5-4014-8bc2-b3cf1fc74877.jpeg",
+    "6abbda1e-f08e-49e6-9e8c-03d4c0e6003b.jpeg",
+    "705b43ac-fe87-4eb3-a325-c7ebf666da30.jpeg",
+    "705defe0-d4fb-4e0d-9f18-fffb47a72bea.jpeg",
+    "777817d6-3157-45b3-93ce-a85cf141db22.jpeg",
+    "80ddf98c-efa6-4967-83ec-1b2e38e9dd59.jpeg",
+    "81c99435-bc09-4a00-b68c-6d6017926938.jpeg",
+    "83e236d2-d5ba-4b18-960d-61b25406cb53.jpeg",
+    "93825137-2c36-4526-896c-db99f04e6ad5.jpeg",
+    "a392b99e-21b1-418e-96ac-dab7daa69a2f.jpeg",
+    "cfddc4b3-a855-4839-b71e-6d5f54e12cee.jpeg",
+    "ecf2e44f-e54a-4dbc-9882-dbd10d391859.jpeg",
+    "fc488e74-e2aa-4faf-a5a8-6066339ff27a.jpeg",
+    "IMG_20250710_161115_474.jpg",
+    "IMG_20250830_121632_198.jpg",
+    "IMG_20250830_121702_703.jpg",
+    "IMG_20251101_194700_119.jpg",
+    "IMG_20251112_175923_353.jpg",
+    "IMG_20260220_181852_276.jpg"
+  ];
+
+  // ── GALLERY ─────────────────────────────────────────────────
+  const grid = document.getElementById('gallery');
+  const wideIdx  = [0, 6, 12, 18];  // wider cards for variety
+  const tallIdx  = [3, 9, 15];      // taller cards
+
+  images.forEach((src, i) => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item' +
+      (wideIdx.includes(i) ? ' wide' : '') +
+      (tallIdx.includes(i) ? ' tall' : '');
+    item.innerHTML = `
+      <img src="images/${src}" alt="Foto ${i+1}" loading="lazy">
+      <div class="overlay"></div>
+    `;
+    item.addEventListener('click', () => openLightbox(i));
+    grid.appendChild(item);
+  });
+
+  // ── LIGHTBOX ─────────────────────────────────────────────────
+  let currentIdx = 0;
+  const lb       = document.getElementById('lightbox');
+  const lbImg    = document.getElementById('lightbox-img');
+
+  function openLightbox(idx) {
+    currentIdx = idx;
+    lbImg.src = `images/${images[idx]}`;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  document.getElementById('lightbox-close').addEventListener('click', () => {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+
+  document.getElementById('lightbox-prev').addEventListener('click', () => {
+    currentIdx = (currentIdx - 1 + images.length) % images.length;
+    lbImg.src = `images/${images[currentIdx]}`;
+  });
+
+  document.getElementById('lightbox-next').addEventListener('click', () => {
+    currentIdx = (currentIdx + 1) % images.length;
+    lbImg.src = `images/${images[currentIdx]}`;
+  });
+
+  lb.addEventListener('click', e => {
+    if (e.target === lb) { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  });
+
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') { lb.classList.remove('open'); document.body.style.overflow = ''; }
+    if (e.key === 'ArrowLeft')  document.getElementById('lightbox-prev').click();
+    if (e.key === 'ArrowRight') document.getElementById('lightbox-next').click();
+  });
+
+  // ── QUOTES CAROUSEL ─────────────────────────────────────────
+  const slides  = document.querySelectorAll('.quote-slide');
+  const dotsEl  = document.getElementById('quoteDots');
+  let qIdx      = 0;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[qIdx].classList.remove('active');
+    dotsEl.children[qIdx].classList.remove('active');
+    qIdx = n;
+    slides[qIdx].classList.add('active');
+    dotsEl.children[qIdx].classList.add('active');
+  }
+
+  setInterval(() => goTo((qIdx + 1) % slides.length), 5000);
+
+  // ── COUNTER ─────────────────────────────────────────────────
+  const start = new Date('2025-06-21T00:00:00');
+  const now   = new Date();
+  const diff  = now - start;
+  const days  = Math.floor(diff / 86400000);
+  const hours = Math.floor(diff / 3600000);
+  const mins  = Math.floor(diff / 60000);
+
+  document.getElementById('cnt-days').textContent  = days.toLocaleString('es');
+  document.getElementById('cnt-hours').textContent = hours.toLocaleString('es');
+  document.getElementById('cnt-min').textContent   = mins.toLocaleString('es');
+
+  // ── FALLING PETALS ──────────────────────────────────────────
+  const container = document.getElementById('petals');
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.left     = Math.random() * 100 + 'vw';
+    p.style.width    = (12 + Math.random() * 14) + 'px';
+    p.style.height   = (16 + Math.random() * 16) + 'px';
+    p.style.opacity  = 0.4 + Math.random() * 0.5;
+    p.style.animationDuration  = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay     = (-Math.random() * 15) + 's';
+    p.style.borderRadius = Math.random() > 0.5 ? '150% 0 150% 0' : '0 150% 0 150%';
+    container.appendChild(p);
+  }
+</script>
+</body>
+</html>
