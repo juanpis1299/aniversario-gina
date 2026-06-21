@@ -396,9 +396,7 @@
 <body>
 
 <!-- ══ AUDIO ══════════════════════════════════ -->
-<audio id="bgMusic" loop>
-  <source src="audio/DOS OJOS.mp3" type="audio/mpeg">
-</audio>
+<audio id="bgMusic" src="audio/DOS%20OJOS.mp3" loop></audio>
 <button class="music-btn" id="musicBtn" aria-label="Reproducir música">♫</button>
 
 <!-- ══ PETALS ════════════════════════════════ -->
@@ -678,18 +676,12 @@
   let playing    = false;
 
   musicBtn.addEventListener('click', () => {
-    if (!music.src || music.networkState === 3) {
-      // No song loaded yet — show friendly hint
-      musicBtn.textContent = '✗';
-      setTimeout(() => musicBtn.textContent = '♫', 1500);
-      return;
-    }
     if (playing) {
       music.pause();
       musicBtn.textContent = '♫';
       musicBtn.classList.remove('playing');
     } else {
-      music.play().catch(() => {});
+      music.play();
       musicBtn.textContent = '❚❚';
       musicBtn.classList.add('playing');
     }
