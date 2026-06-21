@@ -375,6 +375,79 @@
       color: var(--rose-gold); font-size: 1.5rem; margin-top: .5rem;
     }
 
+    /* ── INTRO OVERLAY ──────────────────────── */
+    #introOverlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: radial-gradient(ellipse at 50% 50%, #6b1a2a 0%, #1a040a 100%);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      transition: opacity .8s ease, visibility .8s ease;
+    }
+    #introOverlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+    .intro-stars {
+      position: absolute; inset: 0; pointer-events: none;
+    }
+    .intro-star {
+      position: absolute; border-radius: 50%; background: #fff;
+      animation: twinkle ease-in-out infinite;
+    }
+
+    .intro-content {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 1.2rem;
+      padding: 2rem;
+    }
+
+    .intro-rose {
+      font-size: 4rem;
+      animation: floatRose 3s ease-in-out infinite;
+    }
+    @keyframes floatRose {
+      0%,100% { transform: translateY(0) rotate(-5deg); }
+      50%      { transform: translateY(-14px) rotate(5deg); }
+    }
+
+    .intro-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 12vw, 6rem);
+      color: var(--cream);
+      text-shadow: 0 0 40px rgba(201,169,110,.5);
+      line-height: 1;
+    }
+
+    .intro-sub {
+      font-size: clamp(.95rem, 3vw, 1.2rem);
+      color: var(--soft-pink);
+      letter-spacing: .1em;
+    }
+
+    .intro-btn {
+      margin-top: .8rem;
+      display: inline-flex; align-items: center; gap: .7rem;
+      background: transparent;
+      border: 2px solid var(--rose-gold);
+      color: var(--rose-gold);
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem; letter-spacing: .15em;
+      padding: .9rem 2.2rem; border-radius: 999px;
+      cursor: pointer;
+      animation: pulseBtn 2s ease-in-out infinite;
+      transition: background .3s, color .3s;
+    }
+    .intro-btn:hover { background: var(--rose-gold); color: var(--vino-dark); }
+    .intro-btn-icon { font-size: 1.2rem; }
+    @keyframes pulseBtn {
+      0%,100% { box-shadow: 0 0 0 0 rgba(201,169,110,.4); }
+      50%      { box-shadow: 0 0 0 12px rgba(201,169,110,0); }
+    }
+
+    .intro-hint {
+      font-size: .75rem; letter-spacing: .25em;
+      text-transform: uppercase; color: rgba(245,221,224,.5);
+    }
+
     /* ── RESPONSIVE ──────────────────────────── */
     @media (max-width: 768px) {
       .timeline::before { left: 1.5rem; }
@@ -398,6 +471,21 @@
 <!-- ══ AUDIO ══════════════════════════════════ -->
 <audio id="bgMusic" src="audio/DOS%20OJOS.mp3" loop></audio>
 <button class="music-btn" id="musicBtn" aria-label="Reproducir música">♫</button>
+
+<!-- ══ INTRO OVERLAY ══════════════════════════ -->
+<div id="introOverlay">
+  <div class="intro-stars" id="introStars"></div>
+  <div class="intro-content">
+    <div class="intro-rose">🌹</div>
+    <h2 class="intro-title">Gina</h2>
+    <p class="intro-sub">Tengo algo especial para ti</p>
+    <button class="intro-btn" id="introBtn">
+      <span class="intro-btn-icon">♫</span>
+      <span>Toca para comenzar</span>
+    </button>
+    <p class="intro-hint">21 de Junio · Un año juntos</p>
+  </div>
+</div>
 
 <!-- ══ PETALS ════════════════════════════════ -->
 <div class="petals-container" id="petals"></div>
@@ -609,6 +697,34 @@
 
 <!-- ══ SCRIPTS ═══════════════════════════════ -->
 <script>
+  /* ── 0. INTRO OVERLAY ─────────────────── */
+  const overlay  = document.getElementById('introOverlay');
+  const introBtn = document.getElementById('introBtn');
+  const introSt  = document.getElementById('introStars');
+
+  // Estrellas dentro del overlay
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('div');
+    s.className = 'intro-star';
+    const sz = Math.random() * 2.5 + .5;
+    s.style.cssText = `
+      width:${sz}px; height:${sz}px;
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      animation-duration:${2 + Math.random()*4}s;
+      animation-delay:${-Math.random()*6}s;
+    `;
+    introSt.appendChild(s);
+  }
+
+  introBtn.addEventListener('click', () => {
+    music.play();
+    playing = true;
+    musicBtn.textContent = '❚❚';
+    musicBtn.classList.add('playing');
+    overlay.classList.add('hidden');
+  });
+
   /* ── 1. STARS IN HERO ──────────────────── */
   const hero = document.getElementById('hero');
   for (let i = 0; i < 90; i++) {
